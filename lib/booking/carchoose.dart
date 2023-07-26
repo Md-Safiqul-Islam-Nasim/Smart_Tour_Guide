@@ -111,18 +111,6 @@ class _CarChooseState extends State<CarChoose> {
                                 ),
                               ),
                             ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(right: 130),
-                            //   child: Text(
-                            //     'not stuff to show',
-                            //     style: TextStyle(
-                            //         fontSize: 20,
-                            //         color : Colors.white,
-                            //         fontWeight: FontWeight.bold
-                            //     ),
-                            //   ),
-                            // ),
-
                           ],
                         ),
                       )

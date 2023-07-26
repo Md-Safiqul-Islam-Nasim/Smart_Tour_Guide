@@ -88,7 +88,7 @@ class _Update_ProfileState extends State<Update_Profile> {
                   SizedBox(height: 50),
                   buildTextField("Full Name" , name , false),
                   buildTextField("Email Address" , email , false),
-                  buildTextField("Password" , password , true),
+                  //buildTextField("Password" , password , true),
                   buildTextField("Phone Number0." , phone , false),
 
                   Column(
