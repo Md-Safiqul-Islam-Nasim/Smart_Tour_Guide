@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled/Home/homepage.dart';
-import 'package:untitled/booking/confirm_hotel_booking.dart';
+
+import 'package:untitled/booking/hotel_booking_details.dart';
 
 class HotelBooking extends StatefulWidget {
   const HotelBooking({super.key});
@@ -18,6 +19,7 @@ class _HotelBookingState extends State<HotelBooking> {
   String location = "";
   String division = "";
   String hotelid = "";
+  String details = "";
 
   @override
   Widget build(BuildContext context) {
@@ -40,113 +42,125 @@ class _HotelBookingState extends State<HotelBooking> {
           ),
         ),
       ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: (name != "" && name != null)
+              ? FirebaseFirestore.instance
+                  .collection('hotel_booking')
+                  .where('searchkey', arrayContains: name)
+                  .snapshots()
+              : FirebaseFirestore.instance
+                  .collection('hotel_booking')
+                  .snapshots(),
+          builder: (context, snapshot) {
+            return (snapshot.connectionState == ConnectionState.waiting)
+                ? Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot data = snapshot.data!.docs[index];
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HotelBookingDetails(
+                                        hotelid: data['hotelid'],
+                                        image: data['image'],
+                                        location: data['location'],
+                                        name: data['name'],
+                                        price: data['price'],
+                                        division: data['division'],
+                                        details: data['details'],
+                                      )));
+                        },
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Center(
+                              heightFactor: 1.3,
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 12),
+                                child: Material(
+                                  color: Colors.white,
+                                  elevation: 10,
+                                  borderRadius: BorderRadius.circular(21),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  child: InkWell(
+                                    splashColor: Colors.black,
 
-        body: StreamBuilder<QuerySnapshot>(
-            stream: (name != "" && name != null)
-                ? FirebaseFirestore.instance
-                    .collection('hotel_booking')
-                    .where('searchkey', arrayContains: name)
-                    .snapshots()
-                : FirebaseFirestore.instance
-                    .collection('hotel_booking')
-                    .snapshots(),
-            builder: (context, snapshot) {
-              return (snapshot.connectionState == ConnectionState.waiting)
-                  ? Center(child: CircularProgressIndicator())
-                  : ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        DocumentSnapshot data = snapshot.data!.docs[index];
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ConfirmHotelBooking(
-                                          hotelid: data['hotelid'],
-                                          image: data['image'],
-                                          location: data['location'],
-                                          name: data['name'],
-                                          price: data['price'],
-                                          division: data['division'],
-                                        )));
-                          },
-
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                Center(
-                                  heightFactor: 1.3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 12),
-                                    child: Material(
-                                      color: Colors.white,
-                                      elevation: 10,
-                                      borderRadius: BorderRadius.circular(21),
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      child: InkWell(
-                                        splashColor: Colors.black,
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ConfirmHotelBooking(
-                                                          hotelid: hotelid,
-                                                          location: location,
-                                                          name: name,
-                                                          price: price,
-                                                          division: division,
-                                                          image: image)));
-                                        },
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        CircleAvatar(
+                                          child: Image.network(
+                                            data['image'],
+                                            //data['Duration'],
+                                            width: 140,
+                                            height: 200,
+                                            fit: BoxFit.fill,
+                                          ),
+                                          radius: 50,
+                                          backgroundColor: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width: 0,
+                                        ),
+                                        Column(
                                           children: [
-                                            CircleAvatar(
-                                              child: Image.network(
-                                                data['image'],
-                                                //data['Duration'],
-                                                width: 140,
-                                                height: 200,
-                                                fit: BoxFit.fill,
-                                              ),
-                                              radius: 50,
-                                              backgroundColor: Colors.white,
+                                            Text(
+                                              data['name'],
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.black),
+                                            ),
+                                            Text(
+                                              data['division'],
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
                                             ),
                                             SizedBox(
-                                              width: 3,
+                                              height: 8,
                                             ),
-                                               Column(
-                                                children: [
-                                                  Text(
-                                                    data['name'],
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        color: Colors.black),
-                                                  ),
-                                                  Text(
-                                                    data['division'],
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.black),
-                                                  ),
-                                                  SizedBox(width: 250,)
-                                                ],
-                                              ),
-
-                                            //),
-
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "Price",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.cyan),
+                                                ),
+                                                Text(
+                                                  data['price'],
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.cyan),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              width: 250,
+                                            )
                                           ],
                                         ),
-                                      ),
+
+                                        //),
+                                      ],
                                     ),
                                   ),
-                                )
-                              ],
-                            ),
-                          /* child:Container(
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        /* child:Container(
                               padding: EdgeInsets.only(top: 20),
                               child: Column(
                                 children: [
@@ -204,11 +218,10 @@ class _HotelBookingState extends State<HotelBooking> {
                                 ],
                               ),
                             ),*/
-                        );
-                      },
-                    );
-            }),
-      );
-
+                      );
+                    },
+                  );
+          }),
+    );
   }
 }

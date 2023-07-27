@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 class ConfirmTourProvider with ChangeNotifier {
   void confirmtour({
-    required String tourId,
+    required String tourid,
     required String location,
     required String duration,
     required String cost,
@@ -17,9 +17,9 @@ class ConfirmTourProvider with ChangeNotifier {
         .collection("Confirm_Package")
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Your Confirm_Package")
-        .doc(tourId)
+        .doc(tourid)
         .set({
-      "tourid":tourId,
+      "tourid":tourid,
       "Location":location,
       "Duration": duration,
       "Cost": cost,
@@ -27,8 +27,6 @@ class ConfirmTourProvider with ChangeNotifier {
       "image": image,
       "guide":guide,
     });
-    Fluttertoast.showToast(
-    msg: "Booking Confirmed"
-    );
+
   }
 }

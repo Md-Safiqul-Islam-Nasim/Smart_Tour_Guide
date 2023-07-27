@@ -32,7 +32,6 @@ class _TourPackageListState extends State<TourPackageList> {
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.search),
               hintText: 'Search',
-
             ),
             onChanged: (val) {
               setState(() {
@@ -62,11 +61,107 @@ class _TourPackageListState extends State<TourPackageList> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TourPackageDetails(
-                                      tourid :data['tourid'] ,location: data['Location'], duration: data['Duration'],cost:data['Cost'],
-                                    guide:data['guide'],details:data['details'],image:data['image'],
+                                      tourid: data['tourid'],
+                                      location: data['Location'],
+                                      duration: data['Duration'],
+                                      cost: data['Cost'],
+                                      guide: data['guide'],
+                                      details: data['details'],
+                                      image: data['image'],
                                     )));
                       },
-                      child: Container(
+                      child: Row(children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Center(
+                          heightFactor: 1.3,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 10,
+                              borderRadius: BorderRadius.circular(21),
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
+                              child: InkWell(
+                                splashColor: Colors.black,
+                                /*onTap: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) =>
+                    ConfirmHotelBooking(
+                    hotelid: hotelid,
+                    location: location,
+                    name: name,
+                    price: price,
+                    division: division,
+                    image: image)));
+                    },*/
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    CircleAvatar(
+                                      child: Image.network(
+                                        data['image'],
+                                        //data['Duration'],
+                                        width: 140,
+                                        height: 200,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      radius: 50,
+                                      backgroundColor: Colors.white,
+                                    ),
+                                    SizedBox(
+                                      width: 3,
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text(
+                                          data['Location'],
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+
+                                          data['Duration'],
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+
+                                          data['guide'],
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                        ),
+                                        SizedBox(
+                                          width: 200,
+                                        )
+                                      ],
+                                    ),
+                                     Column(
+                                      children: [
+                                        Text(
+                                          data['Cost'],
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.cyan),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(width: 10,),
+                                    //),
+                                  ],
+                                ),
+
+                                /*child: Container(
                         padding: EdgeInsets.only(top: 20),
                         child: Column(
                           children: [
@@ -124,7 +219,12 @@ class _TourPackageListState extends State<TourPackageList> {
                             )
                           ],
                         ),
-                      ),
+                      ),*/
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]),
                     );
                   });
         },

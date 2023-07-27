@@ -189,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                     child: InkWell(
                       splashColor: Colors.black,
                       onTap: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=> CarChoose()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=> CarBooking()));
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,

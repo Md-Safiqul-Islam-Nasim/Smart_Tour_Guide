@@ -2,23 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:untitled/booking/bookingconfirm.dart';
 
 class TourPackageDetails extends StatelessWidget {
-  final String? tourid;
-  final String? location;
-  final String? duration;
-  final String? cost;
-  final String? details;
-  final String? image;
-  final String? guide;
+  String tourid;
+  String location;
+  String duration;
+  String cost;
+  String details;
+  String image;
+  String guide;
 
-  const TourPackageDetails(
-      {super.key,
-      this.tourid,
-      this.location,
-      this.duration,
-      this.cost,
-      this.guide,
-      this.details,
-      this.image, });
+   TourPackageDetails(
+      {
+        super.key,
+      required this.tourid,
+      required this.location,
+      required this.duration,
+      required this.cost,
+      required this.guide,
+      required this.details,
+      required this.image, });
 
   @override
   Widget build(BuildContext context) {

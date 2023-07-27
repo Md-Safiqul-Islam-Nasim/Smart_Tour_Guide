@@ -70,13 +70,13 @@ class _CarChooseState extends State<CarChoose> {
               fontSize: 17,
               fontWeight: FontWeight.bold,
             )),
-        actions: [
+        /*actions: [
           CircleAvatar(
             radius: 17,
             backgroundColor: Color(0xff5bc0de),
             child: Icon(Icons.search, size: 24, color: Colors.black,),
           ),
-        ],
+        ],*/
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
