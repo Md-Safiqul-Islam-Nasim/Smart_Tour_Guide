@@ -9,17 +9,21 @@ class TourPackageDetails extends StatelessWidget {
   String details;
   String image;
   String guide;
+  String busname;
+  String buscategory;
 
-   TourPackageDetails(
-      {
-        super.key,
-      required this.tourid,
-      required this.location,
-      required this.duration,
-      required this.cost,
-      required this.guide,
-      required this.details,
-      required this.image, });
+  TourPackageDetails({
+    super.key,
+    required this.tourid,
+    required this.location,
+    required this.duration,
+    required this.cost,
+    required this.guide,
+    required this.details,
+    required this.image,
+    required this.busname,
+    required this.buscategory,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +43,7 @@ class TourPackageDetails extends StatelessWidget {
                     child: Image.network(
                       image!,
                       width: 400,
-                      height: 300,
+                      height: 250,
                       fit: BoxFit.fill,
                     ),
                     /*radius: 196,
@@ -50,8 +54,8 @@ class TourPackageDetails extends StatelessWidget {
                   ),
                   Text(
                     location ?? "",
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -117,23 +121,77 @@ class TourPackageDetails extends StatelessWidget {
                         fontSize: 15,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Text(
                     duration ?? "",
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Color(0xff668e8e),
                         fontSize: 15,
                         fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "Bus Name:",
+                    style: TextStyle(
+                        color: Color(0xff668e8e),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    busname ?? "",
+                    style: const TextStyle(
+                        color: Color(0xff668e8e),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  const Text(
+                    "Bus Catagory:",
+                    style: TextStyle(
+                        color: Color(0xff668e8e),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text(
+                    buscategory ?? "",
+                    style: const TextStyle(
+                        color: Color(0xff668e8e),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              const SizedBox(
                 height: 10,
               ),
               Column(
-                children: [
+                children: const [
                   SizedBox(
                     width: 10,
                   ),
@@ -146,7 +204,7 @@ class TourPackageDetails extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -155,7 +213,7 @@ class TourPackageDetails extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: 150,
+                        height: 200,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Text(
@@ -170,7 +228,7 @@ class TourPackageDetails extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               MaterialButton(
                 color: Colors.lightBlueAccent,
@@ -179,16 +237,6 @@ class TourPackageDetails extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 onPressed: () {
-                  /*if(_formkey.currentState!.validate()){
-                    _auth.signInWithEmailAndPassword(
-                        email: _email.text, password: _pass.text
-                    ).then((uid) => {
-                      Fluttertoast.showToast(msg: "Login Successfully"),
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())),
-                    }).catchError((e){
-                      Fluttertoast.showToast(msg: "Invalid Email or Password");
-                    });
-                  }*/
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -200,6 +248,8 @@ class TourPackageDetails extends StatelessWidget {
                                 guide: guide,
                                 details: details,
                                 image: image,
+                                busname: busname,
+                                buscategory: buscategory,
                               )));
                 },
                 child: const Text(

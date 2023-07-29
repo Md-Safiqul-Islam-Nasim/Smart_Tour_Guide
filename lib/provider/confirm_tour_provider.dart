@@ -12,6 +12,8 @@ class ConfirmTourProvider with ChangeNotifier {
     required String details,
     required String image,
     required String guide,
+    required String busname,
+    required String buscategory,
   }) async {
     FirebaseFirestore.instance
         .collection("Confirm_Package")
@@ -26,6 +28,8 @@ class ConfirmTourProvider with ChangeNotifier {
       "details":details,
       "image": image,
       "guide":guide,
+      "busname":busname,
+      "buscategory":buscategory,
     });
 
   }

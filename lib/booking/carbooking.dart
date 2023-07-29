@@ -60,7 +60,7 @@ class _CarBookingState extends State<CarBooking> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => LocationChoose(
-                                        name: data['model'],
+                                        name: data['name'],
                                         image: data['image'],
                                         carid: data['carid'],
                                         capacity: data['capacity'],
@@ -112,7 +112,7 @@ class _CarBookingState extends State<CarBooking> {
                                                       color: Colors.black),
                                                 ),
                                                 Text(
-                                                  data['model'],
+                                                  data['name'],
                                                   style: const TextStyle(
                                                       fontSize: 16,
                                                       fontWeight:

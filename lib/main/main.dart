@@ -7,6 +7,8 @@ import 'package:untitled/User/splash_screen.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled/provider/confirm_car_provider.dart';
+import 'package:untitled/provider/confirm_hotel_provider.dart';
 import 'package:untitled/provider/confirm_tour_provider.dart';
 import '../User/loginpage.dart';
 
@@ -18,6 +20,10 @@ void main() async {
       providers: [
         ChangeNotifierProvider<ConfirmTourProvider>
           (create: (context)=> ConfirmTourProvider()),
+        ChangeNotifierProvider<ConfirmHotelProvider>
+          (create: (context)=> ConfirmHotelProvider()),
+        ChangeNotifierProvider<ConfirmCarProvider>
+          (create: (context)=> ConfirmCarProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

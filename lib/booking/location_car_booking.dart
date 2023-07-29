@@ -1,27 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:untitled/booking/carbooking.dart';
+import 'package:untitled/provider/confirm_car_provider.dart';
 
 class LocationChoose extends StatelessWidget {
-  final String? image;
-  final String? name;
-  final String? capacity;
-  final String? aircondition;
-  final String? carid;
-  final String? carnumber;
+  String image;
+  String name;
+  String capacity;
+  String aircondition;
+  String carid;
+  String carnumber;
 
-  const LocationChoose({
+  LocationChoose({
     super.key,
-    this.name,
-    this.image,
-    this.carid,
-    this.capacity,
-    this.aircondition,
-    this.carnumber,
+    required this.name,
+    required this.image,
+    required this.carid,
+    required this.capacity,
+    required this.aircondition,
+    required this.carnumber,
   });
 
+  ConfirmCarProvider? confirmCarProvider;
+  String selectedlocation = "0";
+  /*void initState(){
+    confirmCarProvider;
+    super.initState();
+  }*/
   @override
   Widget build(BuildContext context) {
-    String selectedClient = "0";
     return Scaffold(
       appBar: AppBar(
         title: const Text("Car Details"),
@@ -33,15 +41,11 @@ class LocationChoose extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Container(
-                    child: Image.network(
-                      image!,
-                      width: 400,
-                      height: 300,
-                      fit: BoxFit.fill,
-                    ),
-                    /*radius: 196,
-                    backgroundColor: Colors.white,*/
+                  Image.network(
+                    image!,
+                    width: 400,
+                    height: 300,
+                    fit: BoxFit.fill,
                   ),
                   const SizedBox(
                     height: 30,
@@ -129,9 +133,11 @@ class LocationChoose extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20 ,),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
-                children: [
+                children: const [
                   Text(
                     "Choose Your PickUp Location :",
                     style: TextStyle(
@@ -141,50 +147,143 @@ class LocationChoose extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('location')
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        List<DropdownMenuItem> locationlist = [];
-                        if (!snapshot.hasData) {
-                          const CircularProgressIndicator();
-                        } else {
-                          final locations =
-                              snapshot.data?.docs.reversed.toList();
-                          locationlist.add(
-                            DropdownMenuItem(
-                              value: "0",
-                              child: Text('Select Picup Location'),
-                            ),
-                          );
-                          for (var location in locations!) {
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('location')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          List<DropdownMenuItem> locationlist = [];
+                          if (!snapshot.hasData) {
+                            const CircularProgressIndicator();
+                          } else {
+                            final locations =
+                                snapshot.data?.docs.reversed.toList();
                             locationlist.add(
-                              DropdownMenuItem(
+                              const DropdownMenuItem(
+                                value: "0",
+                                child: Text('Select Pickup Location'),
+                              ),
+                            );
+                            for (var location in locations!) {
+                              locationlist.add(
+                                DropdownMenuItem(
                                   value: location.id,
                                   child: Text(
                                     location['name'],
-                                  )),
-                            );
+                                  ),
+                                ),
+                              );
+                            }
                           }
-                        }
-                        return DropdownButton(
-                          items: locationlist,
-                          onChanged: (locationlistvalue) {
-                            setState(() {
-                              selectedClient = locationlistvalue;
-                            });
-                            print(locationlistvalue);
-                          },
-                          value: selectedClient,
-                          isExpanded: false,
-                        );
-                      }),
+                          return DropdownButton(
+                            items: locationlist,
+                            onChanged: (locationvalue) {
+                              setState(() {
+                                selectedlocation = locationvalue;
+                              });
+                              print(locationvalue);
+                            },
+                            value: selectedlocation,
+                            isExpanded: false,
+                          );
+                        })
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: const [
+                  Text(
+                    "Choose Your PickUp Location :",
+                    style: TextStyle(
+                        color: Color(0xff668e8e),
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
-              )
+              ),
+              Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance
+                            .collection('location')
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          List<DropdownMenuItem> locationlist = [];
+                          if (!snapshot.hasData) {
+                            const CircularProgressIndicator();
+                          } else {
+                            final locations =
+                                snapshot.data?.docs.reversed.toList();
+                            locationlist.add(
+                              const DropdownMenuItem(
+                                value: "0",
+                                child: Text('Select Drop Location'),
+                              ),
+                            );
+                            for (var location in locations!) {
+                              locationlist.add(
+                                DropdownMenuItem(
+                                  value: location.id,
+                                  child: Text(
+                                    location['name'],
+                                  ),
+                                ),
+                              );
+                            }
+                          }
+                          return DropdownButton(
+                            items: locationlist,
+                            onChanged: (locationvalue) {
+                              setState(() {
+                                selectedlocation = locationvalue;
+                              });
+                              print(locationvalue);
+                            },
+                            value: selectedlocation,
+                            isExpanded: false,
+                          );
+                        })
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              MaterialButton(
+                color: Colors.lightBlueAccent,
+                minWidth: 300,
+                height: 50,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                onPressed: () {
+                  confirmCarProvider?.confirmcar(
+                      carid: carid,
+                      name: name,
+                      image: image,
+                      carnumber: carnumber,
+                      capacity: capacity,
+                      aircondition: aircondition
+                  );
+                  Fluttertoast.showToast(msg: "Your Car Booked");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CarBooking()));
+                },
+                child: const Text(
+                  'Confirm Your Car',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+              ),
             ],
           ),
         ),

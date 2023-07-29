@@ -1,42 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../Package/tour_package.dart';
-import '../Package/tour_package_details.dart';
-import '../provider/confirm_tour_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled/booking/hotelbooking.dart';
+import 'package:untitled/provider/confirm_hotel_provider.dart';
 
+import '../provider/confirm_tour_provider.dart';
 
-class BookingConfirm extends StatelessWidget {
-  String tourid;
+class HotelBookingConfirm extends StatelessWidget {
+  String image ;
+  String name ;
+  String price ;
   String location;
-  String duration;
-  String cost;
+  String division;
+  String hotelid;
   String details;
-  String image;
-  String guide;
-  String busname;
-  String buscategory;
-   BookingConfirm({
+  HotelBookingConfirm({
     super.key,
-    required this.tourid,
-    required this.location,
-    required this.duration,
-    required this.cost,
-    required this.details,
     required this.image,
-    required this.guide,
-     required this.busname,
-     required this.buscategory,
+    required this.name,
+    required this.price,
+    required this.location,
+    required this.division,
+    required this.hotelid,
+    required this.details,
   });
 
-  late ConfirmTourProvider confirmTourProvider;
+  late ConfirmHotelProvider confirmHotelProvider;
+
   @override
   Widget build(BuildContext context) {
-    confirmTourProvider = Provider.of(context);
+    confirmHotelProvider = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Confrimed Booking"),
+        title: const Text("Confrim Hotel Booking"),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -47,9 +43,9 @@ class BookingConfirm extends StatelessWidget {
               decoration: const BoxDecoration(
 
                 image: DecorationImage(
-                    fit: BoxFit.contain, image: AssetImage('image/confirm.png'),
+                  fit: BoxFit.contain, image: AssetImage('image/confirm.png'),
 
-                    ),
+                ),
               ),
             ),
             const SizedBox(height: 50,),
@@ -68,26 +64,24 @@ class BookingConfirm extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)),
 
               onPressed: () {
-                confirmTourProvider.confirmtour(
-                    tourid: tourid,
-                    location: location,
-                    duration: duration,
-                    cost: cost,
-                    details: details,
-                    image: image,
-                    guide: guide,
-                    busname: busname,
-                  buscategory: buscategory,
+                confirmHotelProvider.confirmhotel(
+                  hotelid: hotelid,
+                  location: location,
+                  division: division,
+                  price: price,
+                  image: image,
+                  name: name,
+                  details: details,
                 );
-                Fluttertoast.showToast(msg: "Your Package Booked");
+                Fluttertoast.showToast(msg: "Your Hotel Booked");
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const TourPackageList()));
+                        builder: (context) => HotelBooking()));
               },
 
               child: const Text(
-                'Confirm Package',
+                'Confirm Hotel',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
@@ -99,4 +93,3 @@ class BookingConfirm extends StatelessWidget {
     );
   }
 }
-

@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-
+import 'package:untitled/booking/hotel_booking_confirm.dart';
 
 import 'hotelbooking.dart';
 
 class HotelBookingDetails extends StatelessWidget {
-  final String? hotelid;
-  final String? image;
-  final String? name;
-  final String? location;
-  final String? price;
-  final String? division;
-  final String? details;
-  const HotelBookingDetails(
+  String hotelid;
+  String image;
+  String name;
+  String location;
+  String price;
+  String division;
+  String details;
+  HotelBookingDetails(
       {super.key,
-       this.hotelid, this.image, this.name, this.location, this.price, this.division , this.details});
+      required this.hotelid,
+      required this.image,
+      required this.name,
+      required this.location,
+      required this.price,
+      required this.division,
+      required this.details});
 
   @override
   Widget build(BuildContext context) {
@@ -148,13 +154,14 @@ class HotelBookingDetails extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: 150,
+                        height: 200,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.vertical,
                           child: Text(
                             details ?? "",
                             textAlign: TextAlign.justify,
-                            style: const TextStyle(color:Colors.black ,fontSize: 15),
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 15),
                           ),
                         ),
                       ),
@@ -163,7 +170,7 @@ class HotelBookingDetails extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               MaterialButton(
                 color: Colors.lightBlueAccent,
@@ -185,14 +192,14 @@ class HotelBookingDetails extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HotelBooking(
-                                /*hotelid: hotelid,
+                          builder: (context) => HotelBookingConfirm(
+                                hotelid: hotelid,
                                 location: location,
                                 division: division,
                                 price: price,
                                 image: image,
                                 name: name,
-                                details:details,*/
+                                details: details,
                                 //image: image,
                               )));
                 },

@@ -20,6 +20,8 @@ class _TourPackageListState extends State<TourPackageList> {
   String image = "";
   String details = "";
   String guide = "";
+  String busname = "";
+  String buscategory = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +31,7 @@ class _TourPackageListState extends State<TourPackageList> {
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextField(
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               prefixIcon: Icon(Icons.search),
               hintText: 'Search',
             ),
@@ -50,7 +52,7 @@ class _TourPackageListState extends State<TourPackageList> {
             : FirebaseFirestore.instance.collection('tour_package').snapshots(),
         builder: (context, snapshot) {
           return (snapshot.connectionState == ConnectionState.waiting)
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
@@ -68,6 +70,8 @@ class _TourPackageListState extends State<TourPackageList> {
                                       guide: data['guide'],
                                       details: data['details'],
                                       image: data['image'],
+                                    busname : data['busname'],
+                                    buscategory : data['buscategory'],
                                     )));
                       },
                       child: Row(children: [
@@ -102,6 +106,8 @@ class _TourPackageListState extends State<TourPackageList> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     CircleAvatar(
+                                      radius: 50,
+                                      backgroundColor: Colors.white,
                                       child: Image.network(
                                         data['image'],
                                         //data['Duration'],
@@ -109,35 +115,44 @@ class _TourPackageListState extends State<TourPackageList> {
                                         height: 200,
                                         fit: BoxFit.fill,
                                       ),
-                                      radius: 50,
-                                      backgroundColor: Colors.white,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 3,
                                     ),
                                     Column(
                                       children: [
                                         Text(
                                           data['Location'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               color: Colors.black),
                                         ),
                                         Text(
 
                                           data['Duration'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 12,
                                               color: Colors.black),
                                         ),
-                                        Text(
 
-                                          data['guide'],
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.black),
+                                        Row(
+                                          children: [
+                                            const Text(
+                                              "Guide Name : ",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.black),
+                                            ),
+                                            Text(
+                                              data['guide'],
+                                              style: const TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                          ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 200,
                                         )
                                       ],
@@ -146,17 +161,17 @@ class _TourPackageListState extends State<TourPackageList> {
                                       children: [
                                         Text(
                                           data['Cost'],
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.cyan),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 10,
                                         )
                                       ],
                                     ),
-                                    SizedBox(width: 10,),
+                                    const SizedBox(width: 10,),
                                     //),
                                   ],
                                 ),
