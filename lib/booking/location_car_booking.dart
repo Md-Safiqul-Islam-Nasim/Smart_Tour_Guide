@@ -163,9 +163,9 @@ class LocationChoose extends StatelessWidget {
                             final locations =
                                 snapshot.data?.docs.reversed.toList();
                             locationlist.add(
-                              const DropdownMenuItem(
+                               DropdownMenuItem(
                                 value: "0",
-                                child: Text('Select Pickup Location'),
+                                child: Text('PickUp Location',),
                               ),
                             );
                             for (var location in locations!) {
@@ -200,7 +200,7 @@ class LocationChoose extends StatelessWidget {
               Row(
                 children: const [
                   Text(
-                    "Choose Your PickUp Location :",
+                    "Choose Your Drop Location :",
                     style: TextStyle(
                         color: Color(0xff668e8e),
                         fontSize: 15,
@@ -226,7 +226,7 @@ class LocationChoose extends StatelessWidget {
                             locationlist.add(
                               const DropdownMenuItem(
                                 value: "0",
-                                child: Text('Select Drop Location'),
+                                child: Text('Drop Location'),
                               ),
                             );
                             for (var location in locations!) {

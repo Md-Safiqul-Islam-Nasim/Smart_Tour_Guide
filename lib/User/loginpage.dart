@@ -200,7 +200,7 @@ class _LoginPageState extends State <LoginPage>{
               Container(
                 height : double.infinity,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
